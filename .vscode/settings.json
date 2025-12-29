@@ -1,0 +1,25 @@
+{
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"editor.tabSize": 2,
+	"editor.insertSpaces": false,
+	"files.eol": "\n",
+	"search.exclude": {
+		"pnpm-lock.yaml": true,
+		"LICENSE": true,
+		"README.md": true,
+		"Caddyfile": true,
+		"./.vscode": true,
+		"./.parcel-cache": true,
+		"**/ignore.*": true,
+		"**/dist": true,
+		"**/node_modules": true,
+		"**/credentials": true
+	},
+	"typescript.tsdk": "node_modules\\typescript\\lib",
+	"oxc.enable": true,
+	"cSpell.words": [
+		"Deltron",
+		"TMDB"
+	]
+}
