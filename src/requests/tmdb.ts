@@ -66,7 +66,10 @@ export function setUpTmdbRequests(server: ServerType) {
 					responseFromTmdbApi.results.map((currentMovie) => {
 						return {
 							moviePosterUrl: `${IMAGE_BASE_URL}${currentMovie.poster_path}`,
-							title: currentMovie.title
+							title: currentMovie.title,
+							year: currentMovie.release_date
+								? Number(currentMovie.release_date?.split('-')[0])
+								: null
 						}
 					})
 
@@ -125,7 +128,10 @@ export function setUpTmdbRequests(server: ServerType) {
 					responseFromTmdbApi.results.map((currentTVShow) => {
 						return {
 							tvPosterUrl: `${IMAGE_BASE_URL}${currentTVShow.poster_path}`,
-							title: currentTVShow.name
+							title: currentTVShow.name,
+							year: currentTVShow.first_air_date
+								? Number(currentTVShow.first_air_date?.split('-')[0])
+								: null
 						}
 					})
 
