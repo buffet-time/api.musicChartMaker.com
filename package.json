@@ -27,17 +27,17 @@
 		"checks": "pnpm lint:check && pnpm format:check && pnpm build"
 	},
 	"dependencies": {
-		"@fastify/cors": "^11.1.0",
-		"fastify": "^5.8.2",
-		"@fastify/type-provider-json-schema-to-ts": "^5.0.0"
+		"@fastify/cors": "^11.2.0",
+		"@fastify/type-provider-json-schema-to-ts": "^5.0.0",
+		"fastify": "^5.8.5"
 	},
 	"devDependencies": {
 		"@parcel/config-default": "^2.16.4",
-		"@types/node": "^24.10.1",
-		"oxlint": "^1.56.0",
+		"@types/node": "^25.6.0",
+		"oxlint": "^1.61.0",
 		"parcel": "^2.16.4",
-		"prettier": "^3.8.1",
-		"typescript": "^5.9.3",
-		"undici": "^7.24.5"
+		"prettier": "^3.8.3",
+		"typescript": "^6.0.3",
+		"undici": "^8.1.0"
 	}
 }
