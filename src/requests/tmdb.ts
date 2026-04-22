@@ -49,9 +49,7 @@ export function setUpTmdbRequests(server: ServerType) {
 
 				let url = `${BASE_TMDB_URL}/search/movie?query=${searchQuery}`
 
-				if (includeAdult) {
-					url += `&include_adult=${includeAdult}`
-				}
+				url += includeAdult ? '&include_adult=true' : '&include_adult=false'
 
 				if (searchYear) {
 					url += `&year=${searchYear}`
@@ -111,14 +109,13 @@ export function setUpTmdbRequests(server: ServerType) {
 
 				let url = `${BASE_TMDB_URL}/search/tv?query=${searchQuery}`
 
-				if (includeAdult) {
-					url += `&include_adult=${includeAdult}`
-				}
+				url += includeAdult ? '&include_adult=true' : '&include_adult=false'
 
 				if (searchYear) {
 					url += `&year=${searchYear}`
 				}
 
+				console.log('TV', url)
 				const responseFromTmdbApi: SearchTVResponse = await ProperFetch(
 					url,
 					TMDB_OPTIONS
