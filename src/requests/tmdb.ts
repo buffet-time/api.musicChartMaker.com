@@ -3,7 +3,7 @@ import type {
 	SearchMovieResponse,
 	SearchMovieReturnType,
 	SearchTVResponse,
-	SearchTVReturnType
+	SearchTVReturnType,
 } from '../types/tmdb'
 import TMDBCreds from '../credentials/tmdb.json'
 import { ProperFetch } from '../helpers/misc'
@@ -15,8 +15,8 @@ const TMDB_OPTIONS = {
 	method: 'GET',
 	headers: {
 		accept: 'application/json',
-		Authorization: `Bearer ${TMDBCreds.apiReadAccessToken}`
-	}
+		Authorization: `Bearer ${TMDBCreds.apiReadAccessToken}`,
+	},
 }
 
 export function setUpTmdbRequests(server: ServerType) {
@@ -35,11 +35,11 @@ export function setUpTmdbRequests(server: ServerType) {
 						// whether or not to return results noted as adult, defaults to false
 						adult: { type: 'boolean' },
 						// year of the release to further narrow down the search, no default
-						year: { type: 'number' }
+						year: { type: 'number' },
 					},
-					required: ['term']
-				}
-			}
+					required: ['term'],
+				},
+			},
 		},
 		async (request, response) => {
 			try {
@@ -55,32 +55,28 @@ export function setUpTmdbRequests(server: ServerType) {
 					url += `&year=${searchYear}`
 				}
 
-				const responseFromTmdbApi: SearchMovieResponse = await ProperFetch(
-					url,
-					TMDB_OPTIONS
-				)
+				const responseFromTmdbApi: SearchMovieResponse = await ProperFetch(url, TMDB_OPTIONS)
 
-				const mappedResponse: SearchMovieReturnType[] =
-					responseFromTmdbApi.results.map((currentMovie) => {
+				const mappedResponse: SearchMovieReturnType[] = responseFromTmdbApi.results.map(
+					(currentMovie) => {
 						return {
 							moviePosterUrl: `${IMAGE_BASE_URL}${currentMovie.poster_path}`,
 							title: currentMovie.title,
 							year: currentMovie.release_date
 								? Number(currentMovie.release_date?.split('-')[0])
-								: null
+								: null,
 						}
-					})
+					},
+				)
 
 				response.send(mappedResponse)
 			} catch (error: any) {
 				console.log(`Error in /Search/Movie request:\n ${error}`)
 				response
 					.status(418)
-					.send(
-						`ah fuck I can't believe you've done this\n uh, how did this happen? ${error}`
-					)
+					.send(`ah fuck I can't believe you've done this\n uh, how did this happen? ${error}`)
 			}
-		}
+		},
 	)
 
 	server.get(
@@ -95,11 +91,11 @@ export function setUpTmdbRequests(server: ServerType) {
 						// whether or not to return results noted as adult, defaults to false
 						adult: { type: 'boolean' },
 						// year of the release to further narrow down the search, no default
-						year: { type: 'number' }
+						year: { type: 'number' },
 					},
-					required: ['term']
-				}
-			}
+					required: ['term'],
+				},
+			},
 		},
 		async (request, response) => {
 			try {
@@ -116,40 +112,33 @@ export function setUpTmdbRequests(server: ServerType) {
 				}
 
 				console.log('TV', url)
-				const responseFromTmdbApi: SearchTVResponse = await ProperFetch(
-					url,
-					TMDB_OPTIONS
-				)
+				const responseFromTmdbApi: SearchTVResponse = await ProperFetch(url, TMDB_OPTIONS)
 
-				const mappedResponse: SearchTVReturnType[] =
-					responseFromTmdbApi.results.map((currentTVShow) => {
+				const mappedResponse: SearchTVReturnType[] = responseFromTmdbApi.results.map(
+					(currentTVShow) => {
 						return {
 							tvPosterUrl: `${IMAGE_BASE_URL}${currentTVShow.poster_path}`,
 							title: currentTVShow.name,
 							year: currentTVShow.first_air_date
 								? Number(currentTVShow.first_air_date?.split('-')[0])
-								: null
+								: null,
 						}
-					})
+					},
+				)
 
 				response.send(mappedResponse)
 			} catch (error: any) {
 				console.log(`Error in /Search/TV request:\n ${error}`)
 				response
 					.status(418)
-					.send(
-						`ah fuck I can't believe you've done this\n uh, how did this happen? ${error}`
-					)
+					.send(`ah fuck I can't believe you've done this\n uh, how did this happen? ${error}`)
 			}
-		}
+		},
 	)
 }
 
 export function checkTmdbCreds() {
-	if (
-		TMDBCreds.apiReadAccessToken.length === 244 &&
-		TMDBCreds.apiKey.length === 32
-	) {
+	if (TMDBCreds.apiReadAccessToken.length === 244 && TMDBCreds.apiKey.length === 32) {
 		return
 	}
 

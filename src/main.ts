@@ -1,6 +1,7 @@
 import fastifyCors from '@fastify/cors'
 import Fastify from 'fastify'
 import { getCurrentDate } from './helpers/misc'
+import RateLimit from '@fastify/rate-limit'
 import type { JsonSchemaToTsProvider } from '@fastify/type-provider-json-schema-to-ts'
 
 import type { ServerType } from './types/general'
@@ -13,7 +14,12 @@ const server: ServerType = Fastify().withTypeProvider<JsonSchemaToTsProvider>()
 await server.register(fastifyCors, {
 	origin: true,
 	methods: 'GET',
-	allowedHeaders: 'Content-Type, Authorization'
+	allowedHeaders: 'Content-Type, Authorization',
+})
+
+await server.register(RateLimit, {
+	max: 50,
+	timeWindow: '1 minute',
 })
 
 setUpTmdbRequests(server)
@@ -22,13 +28,11 @@ server
 	.listen({ port: PORT })
 	.then(() => {
 		onStart()
-		console.log(
-			`Fastify server listening on port: ${PORT} ~ ${getCurrentDate()}`
-		)
+		console.log(`Fastify server listening on port: ${PORT} ~ ${getCurrentDate()}`)
 	})
 	.catch((error: any) => {
 		console.log(
-			`Failed to start Fastify server on port ${PORT}: Error - ${error} ~ ${getCurrentDate()}`
+			`Failed to start Fastify server on port ${PORT}: Error - ${error} ~ ${getCurrentDate()}`,
 		)
 	})
 
