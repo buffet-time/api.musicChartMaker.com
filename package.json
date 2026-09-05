@@ -16,24 +16,24 @@
 		"start": "node ./dist/module.js",
 		"build": "parcel build --no-source-maps",
 		"lint:check": "oxlint && echo lint:check done",
-		"format:check": "prettier --check \"./src/**.ts\" && echo format:check done",
+		"format:check": "oxfmt && echo format:check done",
 		"build:check": "pnpm build && echo build:check done",
 		"checks": "pnpm lint:check && pnpm format:check && pnpm build"
 	},
 	"dependencies": {
-		"@fastify/cors": "^11.2.0",
-		"@fastify/rate-limit": "^10.3.0",
+		"@fastify/cors": "^11.3.0",
+		"@fastify/rate-limit": "^11.2.0",
 		"@fastify/type-provider-json-schema-to-ts": "^5.0.0",
-		"fastify": "^5.8.5"
+		"fastify": "^5.12.1"
 	},
 	"devDependencies": {
 		"@parcel/config-default": "^2.16.4",
-		"@types/node": "^25.8.0",
-		"oxfmt": "^0.50.0",
-		"oxlint": "^1.65.0",
+		"@types/node": "^26.4.1",
+		"oxfmt": "^0.66.0",
+		"oxlint": "^1.81.0",
 		"parcel": "^2.16.4",
 		"typescript": "^6.0.3",
-		"undici": "^8.3.0"
+		"undici": "^8.10.1"
 	},
 	"engines": {
 		"node": "^26.1.0",

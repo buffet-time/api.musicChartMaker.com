@@ -60,7 +60,9 @@ export function setUpTmdbRequests(server: ServerType) {
 				const mappedResponse: SearchMovieReturnType[] = responseFromTmdbApi.results.map(
 					(currentMovie) => {
 						return {
-							moviePosterUrl: `${IMAGE_BASE_URL}${currentMovie.poster_path}`,
+							moviePosterUrl: currentMovie.poster_path
+								? `${IMAGE_BASE_URL}${currentMovie.poster_path}`
+								: null,
 							title: currentMovie.title,
 							year: currentMovie.release_date
 								? Number(currentMovie.release_date?.split('-')[0])
@@ -117,7 +119,9 @@ export function setUpTmdbRequests(server: ServerType) {
 				const mappedResponse: SearchTVReturnType[] = responseFromTmdbApi.results.map(
 					(currentTVShow) => {
 						return {
-							tvPosterUrl: `${IMAGE_BASE_URL}${currentTVShow.poster_path}`,
+							tvPosterUrl: currentTVShow.poster_path
+								? `${IMAGE_BASE_URL}${currentTVShow.poster_path}`
+								: null,
 							title: currentTVShow.name,
 							year: currentTVShow.first_air_date
 								? Number(currentTVShow.first_air_date?.split('-')[0])
