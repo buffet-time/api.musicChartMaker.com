@@ -9,7 +9,17 @@ import TMDBCreds from '../credentials/tmdb.json'
 import { ProperFetch } from '../helpers/misc'
 
 const BASE_TMDB_URL = 'https://api.themoviedb.org/3'
-const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w300'
+// https://developer.themoviedb.org/reference/configuration-details
+// "poster_sizes": [
+//   "w92",
+//   "w154",
+//   "w185",
+//   "w342",
+//   "w500",
+//   "w780",
+//   "original"
+// ],
+const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w342'
 
 const TMDB_OPTIONS = {
 	method: 'GET',
