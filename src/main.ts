@@ -13,9 +13,10 @@ const PORT = 3030
 
 const server: ServerType = Fastify().withTypeProvider<JsonSchemaToTsProvider>()
 await server.register(fastifyCors, {
-	origin: true,
-	methods: 'GET',
-	allowedHeaders: 'Content-Type, Authorization',
+	origin: '*',
+	methods: ['GET', 'OPTIONS'],
+	allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+	preflightContinue: false,
 })
 
 await server.register(RateLimit, {

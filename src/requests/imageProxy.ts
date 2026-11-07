@@ -1,4 +1,3 @@
-import { ProperFetch } from '../helpers/misc'
 import { ServerType } from '../types/general'
 
 export function setupImageProxyRequests(server: ServerType) {
@@ -38,8 +37,7 @@ export function setupImageProxyRequests(server: ServerType) {
 				const buffer = Buffer.from(arrayBuffer)
 
 				response.headers({
-					'Content-Type': proxiedImageResponse.headers.get('content-type') || 'image/jpeg',
-					'Access-Control-Allow-Origin': '*',
+					'content-type': proxiedImageResponse.headers.get('content-type') || 'image/jpeg',
 				})
 
 				response.send(buffer)
