@@ -18,11 +18,11 @@
 	},
 	"typescript.tsdk": "node_modules\\typescript\\lib",
 	"oxc.enable": true,
-	"cSpell.words": [
-		"Deltron",
-		"TMDB"
-	],
+	"cSpell.words": ["Deltron", "TMDB"],
 	"[jsonc]": {
+		"editor.defaultFormatter": "oxc.oxc-vscode"
+	},
+	"[typescript]": {
 		"editor.defaultFormatter": "oxc.oxc-vscode"
 	}
 }

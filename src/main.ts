@@ -6,6 +6,7 @@ import type { JsonSchemaToTsProvider } from '@fastify/type-provider-json-schema-
 
 import type { ServerType } from './types/general'
 import { checkTmdbCreds, setUpTmdbRequests } from './requests/tmdb'
+import { setupImageProxyRequests } from './requests/imageProxy'
 
 // Deltron
 const PORT = 3030
@@ -23,6 +24,7 @@ await server.register(RateLimit, {
 })
 
 setUpTmdbRequests(server)
+setupImageProxyRequests(server)
 
 server
 	.listen({ port: PORT })

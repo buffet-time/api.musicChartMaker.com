@@ -123,7 +123,6 @@ export function setUpTmdbRequests(server: ServerType) {
 					url += `&year=${searchYear}`
 				}
 
-				console.log('TV', url)
 				const responseFromTmdbApi: SearchTVResponse = await ProperFetch(url, TMDB_OPTIONS)
 
 				const mappedResponse: SearchTVReturnType[] = responseFromTmdbApi.results.map(
