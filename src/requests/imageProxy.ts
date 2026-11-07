@@ -33,7 +33,7 @@ export function setupImageProxyRequests(server: ServerType) {
 						)
 				}
 
-				const proxiedImageResponse = await ProperFetch(tmdbUrlToProxy)
+				const proxiedImageResponse = await fetch(tmdbUrlToProxy)
 				const arrayBuffer = await proxiedImageResponse.arrayBuffer()
 				const buffer = Buffer.from(arrayBuffer)
 
@@ -44,7 +44,7 @@ export function setupImageProxyRequests(server: ServerType) {
 
 				response.send(buffer)
 			} catch (error: any) {
-				console.log(`Error in /Search/TV request:\n ${error}`)
+				console.log(`Error in /TmdbImageProxy:\n ${error}`)
 				response
 					.status(418)
 					.send(`ah fuck I can't believe you've done this\n uh, how did this happen? ${error}`)
