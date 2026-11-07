@@ -25,7 +25,7 @@ export function setupImageProxyRequests(server: ServerType) {
 					tmdbUrlAsUrlObject.protocol === 'https:' || tmdbUrlAsUrlObject.protocol === 'http:'
 
 				if (!isTmdbImageDomain || !isValidProtocol) {
-					response
+					return response
 						.status(418)
 						.send(
 							`ah fuck I can't believe you've done this\n uh, how did this happen?\n only works with TMDB images.`,
@@ -36,11 +36,12 @@ export function setupImageProxyRequests(server: ServerType) {
 				const arrayBuffer = await proxiedImageResponse.arrayBuffer()
 				const buffer = Buffer.from(arrayBuffer)
 
-				response.headers({
-					'content-type': proxiedImageResponse.headers.get('content-type') || 'image/jpeg',
-				})
+				response.header(
+					'content-type',
+					proxiedImageResponse.headers.get('content-type') || 'image/jpeg',
+				)
 
-				response.send(buffer)
+				return response.send(buffer)
 			} catch (error: any) {
 				console.log(`Error in /TmdbImageProxy:\n ${error}`)
 				response
