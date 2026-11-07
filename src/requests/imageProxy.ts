@@ -16,6 +16,8 @@ export function setupImageProxyRequests(server: ServerType) {
 			},
 		},
 		async (request, response) => {
+			response.header('access-control-allow-origin', '*')
+
 			try {
 				const tmdbUrlToProxy = request.query.url
 				const tmdbUrlAsUrlObject = new URL(tmdbUrlToProxy)
@@ -25,14 +27,15 @@ export function setupImageProxyRequests(server: ServerType) {
 					tmdbUrlAsUrlObject.protocol === 'https:' || tmdbUrlAsUrlObject.protocol === 'http:'
 
 				if (!isTmdbImageDomain || !isValidProtocol) {
-					return response
-						.status(418)
-						.send(
-							`ah fuck I can't believe you've done this\n uh, how did this happen?\n only works with TMDB images.`,
-						)
+					throw new Error('Not from TMDB image domain')
 				}
 
 				const proxiedImageResponse = await fetch(tmdbUrlToProxy)
+
+				if (!proxiedImageResponse.ok) {
+					throw new Error('Error fetching from TMDB')
+				}
+
 				const arrayBuffer = await proxiedImageResponse.arrayBuffer()
 				const buffer = Buffer.from(arrayBuffer)
 
